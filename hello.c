@@ -14,6 +14,12 @@ typedef struct user[usernum]{
 
 }user;
 
+void main(){
+	printf("swengineering");
+
+
+}
+
 void ShowHomeMenu(){
 	printf("\tHome Menu\n");
 	printf("-----------------");
