@@ -6,8 +6,9 @@ void ShowHomeMenu();
 void HomeMenuSystem();
 void AddAccount();
 void Login();
+int usernum, loginnum;
 
-typedef struct user[usernum]{
+typedef struct user {
 	char id[MAX];
 	char password[MAX];
 	char name[30];
@@ -30,15 +31,15 @@ void ShowHomeMenu(){
 }
 
 void HomeMenuSystem(){
-	int num;
+	int homenum;
 	ShowHomeMenu();
 	do{
 		do{
 			printf("메뉴를 선택하세요: \n");
-			scanf("%d", &num);
-		}while(num>3 || num <1);
+			scanf_s("%d", &homenum);
+		}while(homenum>3 || homenum <1);
 		printf("\n");
-	switch (num){
+	switch (homenum){
 	case 1:
 		AddAccount();
 		break;
@@ -46,13 +47,13 @@ void HomeMenuSystem(){
 		Login();
 		break;
 	}
-   }while(num != 3);
+   }while(homenum != 3);
 }
 
 void AddAccount(){
-	IS_FULL();
-	FindID();
-	ShowHomeMenu();
+	//IS_FULL();
+	//FindID();
+	//ShowHomeMenu();
 }
 
 void ShowLoginMenu(){
@@ -69,5 +70,6 @@ void ShowLoginMenu(){
 void Login() {
 	do{
 
-	}while(loginnum != 3)
+	}while(loginnum != 3);
+		
 }
