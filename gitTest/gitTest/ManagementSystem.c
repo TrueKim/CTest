@@ -30,6 +30,17 @@ struct _node {
 
 typedef struct _node node;
 
+typedef struct userSchedule * item_ptr;
+typedef struct userSchedule {
+	char contents[40];
+	int year; 
+	int month;
+	int day;
+	item_ptr link;
+};
+
+item_ptr schedule;
+
 void ShowHomeMenu();
 void HomeMenuSystem();
 void AddAccount();
@@ -40,9 +51,20 @@ void Insert(node*);		// 노드 삽입 함수
 void Delete(node*);		// 노드 삭제 함수
 void Display(node*);	// 노드 정보 출력 함수
 
-int main(void) {
-	AddressManagement();
+void ScheduleManagement();
+void insert_schedule(item_ptr * ptr);
 
+int main(void) {
+
+	int menuNum = 1;
+
+	printf("<1>address , <2>schedule 선택 : ");
+	scanf("%d", &menuNum);
+
+	if(menuNum == 1)
+		AddressManagement();
+	else if(menuNum == 2)
+		ScheduleManagement();
 
 }
 
@@ -100,6 +122,47 @@ void AddressManagement(){
 
 }
 
+void ScheduleManagement(){
+	item_ptr temp;	
+	int ans =1;
+
+	printf("\n");
+    printf("1. Insert a new subject \n");
+	printf("2. Delete a subject \n");
+	printf("3. Print all subject list\n");
+	printf("4. Exit\n");
+
+	printf("make your choice (1 ~ 4)\n");
+
+	scanf("%d", &ans);
+	
+	while (ans >=1 && ans <=4)
+	{
+		if (ans >=1 && ans <=4)
+		{
+			switch(ans)
+			{
+			case 1: insert_schedule(&schedule);
+				break;
+			//case 2: delete_schedule(&schedule);
+			//	break;
+			//case 3: viewAll_schedule(schedule);
+			//	break;
+			case 4:  exit(1);
+			}
+		}
+		printf("1. Insert a new subject \n");
+		printf("2. Delete a subject \n");
+		printf("3. Print all subject list\n");
+		printf("4. Exit\n");
+
+		printf("make your choice (1 ~ 4)\n");
+
+		scanf("%d", &ans);	
+
+	}
+}
+
 
 void Insert(node *ptr) {
 	while (ptr->link != NULL)
@@ -152,6 +215,48 @@ void Display(node *ptr)  {
 		printf("\n");
 	}
 	printf("\n");
+}
+
+void insert_schedule(item_ptr *ptr)
+{
+			
+		item_ptr rear, temp;
+
+		char contents[40];
+		int year;
+		int month;
+		int day;	
+
+		temp = (item_ptr) malloc(sizeof(struct userSchedule));
+
+		temp->link = NULL;
+
+		if(*ptr){
+			for(rear=*ptr;rear->link;rear=rear->link){
+				;
+			}
+			rear->link = temp;
+		}
+		else
+			*ptr = temp;
+
+
+		printf("contents(내용입력) : "); 
+		scanf("%s", &contents);		
+		strcpy(temp->contents, contents);
+
+		printf("year(년) : "); 
+		scanf("%d", &year);
+		temp->year = year;
+
+		printf("month(월) : "); 
+		scanf("%d", &month);
+		temp->month = month;
+
+		printf("day(일) : "); 
+		scanf("%d", &day);
+		temp->day = day;
+
 }
 
 void ShowHomeMenu(){
