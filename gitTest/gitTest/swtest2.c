@@ -1,26 +1,23 @@
-/*#include <stdio.h>
-
-#define MAX 15
-
+/*
 void ShowHomeMenu();
 void HomeMenuSystem();
 void AddAccount();
 void Login();
-
-typedef struct user[usernum]{
-	char id[MAX];
-	char password[MAX];
-	char name[30];
-
-}user;
-
-
-
 }*/
 #include <stdio.h>
 #include <malloc.h>
 #include <string.h>
 #include <memory.h>
+#define MAX 15
+
+typedef struct user{
+	char id[MAX];
+	char password[MAX];
+	char name[30];
+
+};
+
+int usernum = 0;
 
 struct _node {
 	char name[10];	
@@ -29,9 +26,12 @@ struct _node {
 	struct _node *link;	// 다음 노드
 };
 
+//typedef struct user[1];
+
 typedef struct _node node;
 
 typedef struct userSchedule * item_ptr;
+
 typedef struct userSchedule {
 	char contents[40];
 	int year; 
@@ -43,6 +43,7 @@ typedef struct userSchedule {
 item_ptr schedule;
 
 void ShowHomeMenu();
+void ShowLoginMenu();
 void HomeMenuSystem();
 void AddAccount();
 void Login();
@@ -56,11 +57,13 @@ void ScheduleManagement();
 void insert_schedule(item_ptr * ptr);
 
 int main(void) {
-
+	
+	
 	int menuNum = 1;
+	HomeMenuSystem();
 
 	printf("<1>address , <2>schedule 선택 : ");
-	scanf("%d", &menuNum);
+	scanf_s("%d", &menuNum);
 
 	if(menuNum == 1)
 		AddressManagement();
@@ -122,9 +125,8 @@ void AddressManagement(){
 
 
 }
-
 void ScheduleManagement(){
-	item_ptr temp;	
+	//item_ptr temp;	
 	int ans =1;
 
 	printf("\n");
@@ -135,7 +137,7 @@ void ScheduleManagement(){
 
 	printf("make your choice (1 ~ 4)\n");
 
-	scanf("%d", &ans);
+	scanf_s("%d", &ans);
 	
 	while (ans >=1 && ans <=4)
 	{
@@ -159,12 +161,10 @@ void ScheduleManagement(){
 
 		printf("make your choice (1 ~ 4)\n");
 
-		scanf("%d", &ans);	
+		scanf_s("%d", &ans);	
 
 	}
 }
-
-
 void Insert(node *ptr) {
 	while (ptr->link != NULL)
 		ptr = ptr->link;
@@ -175,20 +175,19 @@ void Insert(node *ptr) {
 
 	printf("\n");
 	printf("이름을 입력하시오: ");
-	gets(ptr->name);
+	//gets_s(ptr->name);
 	printf("전화번호 입력하시오: ");
-	gets(ptr->phone);
+	//gets_s(ptr->phone);
 
 	ptr->link = NULL;
 	printf("\n");
 }
-
 void Delete(node *ptr)  {
 	node *prev;
 	char _phone[14];
 
 	printf("삭제할 전화번호를 선택하시오: ");
-	gets(_phone);
+	//gets(_phone);
 
 	while (ptr->link != NULL)  {
 		prev = ptr;
@@ -203,7 +202,6 @@ void Delete(node *ptr)  {
 	}
 	return;
 }
-
 void Display(node *ptr)  {
 
 	while (ptr != NULL) {
@@ -217,7 +215,6 @@ void Display(node *ptr)  {
 	}
 	printf("\n");
 }
-
 void insert_schedule(item_ptr *ptr)
 {
 			
@@ -243,23 +240,22 @@ void insert_schedule(item_ptr *ptr)
 
 
 		printf("contents(내용입력) : "); 
-		scanf("%s", &contents);		
-		strcpy(temp->contents, contents);
+		scanf_s("%s", &contents);		
+		//strcpy(temp->contents, contents);
 
 		printf("year(년) : "); 
-		scanf("%d", &year);
+		scanf_s("%d", &year);
 		temp->year = year;
 
 		printf("month(월) : "); 
-		scanf("%d", &month);
+		scanf_s("%d", &month);
 		temp->month = month;
 
 		printf("day(일) : "); 
-		scanf("%d", &day);
+		scanf_s("%d", &day);
 		temp->day = day;
 
 }
-
 void ShowHomeMenu(){
 	printf("\tHome Menu\n");
 	printf("-----------------");
@@ -268,29 +264,40 @@ void ShowHomeMenu(){
 	printf("-----------------");
 	printf("메뉴를 선택하세요: \n");
 }
-
 void HomeMenuSystem(){
 	int num;
 	ShowHomeMenu();
 	do{
 		do{
 			printf("메뉴를 선택하세요: \n");
-			scanf("%d", &num);
+			scanf_s("%d", &num);
 		}while(num>3 || num <1);
 		printf("\n");
 	switch (num){
 	case 1:
 		AddAccount();
 		break;
-	//case 2:
-	//	Login();
-	//	break;
+	case 2:
+		ShowLoginMenu();
+		//	Login();
+		//break;
+		;
 	}
    }while(num != 3);
 }
 
-void AddAccount(){
-	//IS_FULL();
+void AddAccount() {
+	char yesNo[2] = "n";
+	do {
+		printf("아이디 입력: ");
+		//scanf_s("%s", &user[usernum].id);
+		printf("패스워드 입력: ");
+		//scanf_s("%s", &user[usernum].password);
+		printf("입력 완료했나요?: ");
+		scanf_s("%s", &yesNo);
+	} while(strcmp(yesNo, "y") != 0);
+	usernum++;
+	printf("\n");
 	//FindID();
 	ShowHomeMenu();
 }
